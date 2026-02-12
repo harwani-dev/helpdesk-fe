@@ -16,6 +16,7 @@ import { ErrorBoundary } from "react-error-boundary"
 import { ErrorFallback } from "@/components/custom/ErrorFallback"
 import { useEffect } from "react"
 import { useAuth } from "@/hooks/useAuth"
+import { extractErrorMessage } from "@/lib/error-utils"
 
 type CreateTicketFormValues = {
     title: string
@@ -53,7 +54,8 @@ function CreateTicketComponent() {
         },
         onError: (error: any) => {
             console.error(error)
-            toast.error(error.response?.data?.error?.details?.[0] || "Failed to create ticket")
+            const errorMessage = extractErrorMessage(error, "Failed to create ticket")
+            toast.error(errorMessage)
         },
     })
 

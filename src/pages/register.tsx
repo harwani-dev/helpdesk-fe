@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query"
 import api from "@/lib/api"
 import { toast } from "sonner"
 import { type ApiResponse } from "@/lib/api-schema"
+import { extractErrorMessage } from "@/lib/error-utils"
 
 type RegisterData = { token?: string }
 
@@ -30,7 +31,8 @@ export const Register = () => {
             navigate("/dashboard")
         },
         onError: (error: any) => {
-            toast.error(error.response?.data?.error || "Registration failed")
+            const errorMessage = extractErrorMessage(error, "Registration failed")
+            toast.error(errorMessage)
         },
     })
 

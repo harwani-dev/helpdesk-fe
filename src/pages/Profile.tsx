@@ -6,12 +6,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useEffect, useRef, useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
 import api from "@/lib/api"
 import { toast } from "sonner"
 import { Camera, User } from "lucide-react"
 import { useAuthHeader } from "@/hooks/useAuthHeader"
 import type { UserProfile } from "@/types/profile"
+import { extractErrorMessage } from "@/lib/error-utils"
 
 export default function Profile() {
     const [name, setName] = useState("")
@@ -70,13 +70,8 @@ export default function Profile() {
             toast.success("Profile updated successfully")
             queryClient.invalidateQueries({ queryKey: ["userProfile"] })
         },
-        onError: (e: unknown) => {
-            const message =
-                axios.isAxiosError(e) && e.response?.data?.error?.details?.[0]
-                    ? e.response.data.error.details[0]
-                    : e instanceof Error
-                        ? e.message
-                        : "Failed to update profile"
+        onError: (error: unknown) => {
+            const message = extractErrorMessage(error as any, "Failed to update profile")
             toast.error(message)
         },
     })

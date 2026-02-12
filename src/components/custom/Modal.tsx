@@ -6,6 +6,7 @@ import api from "@/lib/api"
 import { toast } from "sonner"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useAuth } from "@/hooks/useAuth"
+import { extractErrorMessage } from "@/lib/error-utils"
 
 interface ModalProps {
     ticket: Ticket | null
@@ -58,7 +59,7 @@ export default function Modal({
         },
         onError: (error: any, variables) => {
             console.error(error)
-            const errorMessage = error.response?.data?.error || `Failed to ${variables.action} ticket`
+            const errorMessage = extractErrorMessage(error, `Failed to ${variables.action} ticket`)
             toast.error(errorMessage)
         },
     })

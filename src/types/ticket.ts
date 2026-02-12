@@ -21,5 +21,5 @@ export interface Ticket {
         email: string;
         name: string | null;
     };
-    rating?: number | null;
+   rating?: number | null;
 }
