@@ -17,20 +17,6 @@ export default function MainLayout() {
     const navigate = useNavigate();
     const isNavigating = navigation.state === "loading";
     const [showLoader, setShowLoader] = useState(true);
-
-    // const { data, isLoading, error } = useQuery({
-    //     queryKey: ["user"],
-    //     queryFn: async () => {
-    //         const token = localStorage.getItem("token");
-    //         const response = await axios.get("https://helpdesk-788474910057.asia-south1.run.app/api/users/me", {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-    //         return response.data
-    //     },
-    //     retry: false
-    // })
     useEffect(() => {
         if (isNavigating) {
             setShowLoader(true);
