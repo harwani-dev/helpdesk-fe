@@ -1,7 +1,7 @@
 import axios from "axios"
 
 // Base URL for the API
-const API_BASE_URL = "http://localhost:8000"
+const API_BASE_URL = "https://helpdesk-788474910057.asia-south1.run.app"
 
 // Create axios instance with base configuration
 const api = axios.create({
